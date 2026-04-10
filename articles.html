@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Articles</title>
+</head>
+
+<body>
+
+<h2>All Articles</h2>
+
+<div id="articleList"></div>
+
+<script>
+async function loadArticles() {
+    try {
+        const res = await fetch("http://127.0.0.1:5000/get-articles");
+        const data = await res.json();
+
+        let output = "";
+
+        data.forEach(a => {
+            output += `
+                <div>
+                    <h3>${a.title}</h3>
+                    <p>${a.content}</p>
+                    <hr>
+                </div>
+            `;
+        });
+
+        document.getElementById("articleList").innerHTML = output;
+
+    } catch (error) {
+        alert("Error loading articles");
+    }
+}
+
+loadArticles();
+</script>
+
+</body>
+</html>

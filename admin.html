@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+
+<body>
+
+<!-- LOGIN PROTECTION -->
+<script>
+if (localStorage.getItem("admin") !== "true") {
+    window.location.href = "login.html";
+}
+</script>
+
+<h1>ADMIN PANEL</h1>
+
+<button onclick="logout()">Logout</button>
+
+<hr>
+
+<!-- EVENT -->
+<h2>Add Event</h2>
+<input id="eventTitle" placeholder="Event Title"><br><br>
+<input id="eventDate" placeholder="Event Date"><br><br>
+<input id="eventVideo" placeholder="YouTube Video Link"><br><br>
+
+<button onclick="addEvent()">Add Event</button>
+
+
+
+<!-- DEBATE -->
+<h2>Add Debate</h2>
+<input id="debateTitle" placeholder="Debate Title"><br><br>
+<input id="debateDate" placeholder="Debate Date"><br><br>
+<hr>
+<input id="debateVideo" placeholder="YouTube Video Link"><br><br>
+<button onclick="addDebate()">Add Debate</button>
+
+<hr>
+
+<!-- ARTICLE -->
+<h2>Add Article</h2>
+<input id="articleTitle" placeholder="Article Title"><br><br>
+<textarea id="articleContent" placeholder="Article Content"></textarea><br><br>
+<button onclick="addArticle()">Add Article</button>
+
+<hr>
+
+<!-- PODCAST -->
+<h2>Add Podcast</h2>
+<input id="podcastTitle" placeholder="Podcast Title"><br><br>
+<input id="podcastLink" placeholder="YouTube / Spotify Link"><br><br>
+<button onclick="addPodcast()">Add Podcast</button>
+
+<hr>
+
+<script>
+
+// LOGOUT
+function logout() {
+    localStorage.removeItem("admin");
+    window.location.href = "login.html";
+}
+
+// EVENT
+async function addEvent() {
+    const res = await fetch("http://127.0.0.1:5000/add-event", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+       body: JSON.stringify({
+    title: document.getElementById("eventTitle").value,
+    date: document.getElementById("eventDate").value,
+    video: document.getElementById("eventVideo").value
+       })
+    });
+    const data = await res.json();
+    alert(data.message);
+}
+
+// DEBATE
+async function addDebate() {
+    const res = await fetch("http://127.0.0.1:5000/add-debate", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+       body: JSON.stringify({
+    title: document.getElementById("debateTitle").value,
+    date: document.getElementById("debateDate").value,
+    video: document.getElementById("debateVideo").value
+       })
+    });
+    const data = await res.json();
+    alert(data.message);
+}
+
+// ARTICLE
+async function addArticle() {
+    const res = await fetch("http://127.0.0.1:5000/add-article", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            title: document.getElementById("articleTitle").value,
+            content: document.getElementById("articleContent").value
+        })
+    });
+    const data = await res.json();
+    alert(data.message);
+}
+
+// PODCAST
+async function addPodcast() {
+    const res = await fetch("http://127.0.0.1:5000/add-podcast", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            title: document.getElementById("podcastTitle").value,
+            link: document.getElementById("podcastLink").value
+        })
+    });
+    const data = await res.json();
+    alert(data.message);
+}
+
+</script>
+
+</body>
+</html>
