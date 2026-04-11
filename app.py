@@ -1,5 +1,4 @@
-
-   from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from pymongo import MongoClient
 
@@ -23,13 +22,11 @@ def static_files(path):
 @app.route('/contact', methods=['POST'])
 def contact():
     data = request.json
-
     db["contacts"].insert_one({
         "name": data.get("name"),
         "email": data.get("email"),
         "message": data.get("message")
     })
-
     return jsonify({"message": "Message saved successfully!"})
 
 
@@ -42,13 +39,11 @@ def get_messages():
 @app.route('/add-event', methods=['POST'])
 def add_event():
     data = request.json
-
     db["events"].insert_one({
         "title": data.get("title"),
         "date": data.get("date"),
         "video": data.get("video")
     })
-
     return jsonify({"message": "Event added successfully"})
 
 
@@ -61,13 +56,11 @@ def get_events():
 @app.route('/add-debate', methods=['POST'])
 def add_debate():
     data = request.json
-
     db["debates"].insert_one({
         "title": data.get("title"),
         "date": data.get("date"),
         "video": data.get("video")
     })
-
     return jsonify({"message": "Debate added successfully"})
 
 
@@ -80,12 +73,10 @@ def get_debates():
 @app.route('/add-article', methods=['POST'])
 def add_article():
     data = request.json
-
     db["articles"].insert_one({
         "title": data.get("title"),
         "content": data.get("content")
     })
-
     return jsonify({"message": "Article added successfully"})
 
 
@@ -98,12 +89,10 @@ def get_articles():
 @app.route('/add-podcast', methods=['POST'])
 def add_podcast():
     data = request.json
-
     db["podcasts"].insert_one({
         "title": data.get("title"),
         "link": data.get("link")
     })
-
     return jsonify({"message": "Podcast added successfully"})
 
 
@@ -114,4 +103,4 @@ def get_podcasts():
 
 # ================= RUN =================
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
