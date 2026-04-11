@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)
 
 # MongoDB connection
-client = MongoClient("mongodb://127.0.0.1:27017/")
+client = MongoClient("mongodb+srv://pradipmahato8389045671_db_user:yk7Ihvp1q4oWZhzt@cluster0.jpoxryo.mongodb.net/")
 db = client["rasc_db"]
 
 # ================= CONTACT =================
